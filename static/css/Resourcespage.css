@@ -1,0 +1,297 @@
+body {
+    font-family: "DM Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+#forum-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.form-outer-body {
+    background-color: #00796b;
+    padding: 20px;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.posts-grid {
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post-block {
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    min-width: 230px;
+    margin: 10px;
+}
+
+.post-row1 {
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    min-width: 200px;
+    margin: 20px;
+    margin-top: 10px;
+}
+
+.post-row2 {
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    min-width: 200px;
+    margin: 20px;
+    margin-top: 10px;
+}
+
+.post-block:hover,
+.post-row2:hover {
+    transform: scale(1.05);
+}
+
+.post-row1,
+.post-row2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.post-block h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.post-block p.author,
+.post-row2 p.author {
+    color: #878851;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.post-block p.timeprint,
+.post-row2 p.timeprint {
+    color: #7d7e58;
+    font-weight: bold;
+    font-size: 10px;
+    margin-top: 5px;
+    margin-left: -20px;
+}
+
+.post-block p,
+.post-row2 p {
+    color: #6b1414;
+    margin-bottom: 8px;
+}
+
+.post-content {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.post-options,
+.post-row2 .post-options {
+    margin-top: 20px;
+}
+
+.view-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Load More Button Styles */
+#load-more-container,
+#load-navigation-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#load-more-button,
+#prev-page-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+#prev-page-button {
+    display: none;
+}
+
+#post-counter {
+    margin-left: 10px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1200px) {
+    #forum-container {
+        max-width: 600px;
+    }
+
+    .posts-grid {
+        gap: 15px;
+    }
+
+    .post-block {
+        flex: 0 0 calc(48% - 7.5px);
+    }
+
+    .post-row2 {
+        flex: 0 0 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .post-block,
+    .post-row2 {
+        flex: 0 0 100%;
+    }
+}
+
+/* Styling for .post-row2 and its elements */
+.post-row2 {
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    min-width: 200px;
+    margin: 20px;
+    margin-top: 10px;
+    min-height: 100px;
+}
+
+.post-row2:hover {
+    transform: scale(1.05);
+}
+.post-row2 h3 {
+    color: #0c0c0c;
+    font-weight: bold;
+    margin-top: 3px;
+    font-size: 24px;
+}
+
+.post-row2 p.author {
+    color: #878851;
+    font-weight: bold;
+    margin-top: 15px;
+    transform: translate(5px,-5px);
+    font-size: 16px;
+}
+
+.post-row2 p.timeprint {
+    color: #7d7e58;
+    font-weight: bold;
+    font-size: 10px;
+    margin-top: 5px;
+    transform: translate(100px,-10px);
+}
+
+
+
+.post-row2 .post-options {
+    /* bottom: 0px;
+    right: 20px; */
+     transform: translate(0px,50px); 
+}
+
+.post-row2 .post-content{
+    color: #6b1414;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 5px;
+    transform: translate(-280px,25px);
+
+}
+
+
+/* ... Your existing CSS styles ... */
+
+/* Styling for the static search bar */
+.search-bar {
+    position: relative;
+
+
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    border: 0.5px groove ;
+    border-color: #bbafaf;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bbafaf;
+    border-radius: 4px;
+}
+
+.search-bar button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Remove page limit for posts */
+.posts-grid {
+    /* Remove max-height property to allow unlimited vertical space for posts */
+    max-height: none;
+}
+.search-wrapper {
+    display: flex; /* Make elements display inline */
+    flex-direction: row;
+    justify-content: space-between; /* Distribute space evenly */
+    align-items: center; /* Align elements vertically */
+  }
+  
+  .search-bar {
+    /* Adjust width and position as needed */
+    width: 40%;
+    border-radius: 5px;
+    margin-right: 17px;
+  }
+  
+  .page-title {
+
+    /* Adjust margin to accommodate search bar */
+    margin-left: 5%;
+  }
+  

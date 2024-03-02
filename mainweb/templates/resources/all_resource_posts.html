@@ -1,9 +1,15 @@
 <!-- all_resource_posts.html -->
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Resourcespage.css' %}">
+    <link rel="icon" type="image/x-icon" href="favicon.jpeg"> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Resource Posts</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -30,63 +36,79 @@
     </style>
 </head>
 <body>
-    <a href="{% url 'home' %}">
-        <button>Go to Dashboard</button>
-    </a>
-    <h1>All Resource Posts</h1>
-    {% if user.is_authenticated and user.is_staff %}
-        <a href="{% url 'create_resource_post' %}">Create Resource</a>
-    {% endif %}
-    <br>
     <!-- Search bar -->
-    <input type="text" id="searchInput" placeholder="Search by title">
-    <div id="searchResults"></div>
+   
 
     <!-- Resource posts -->
-    <div id="resourcePosts">
-        {% for post in posts %}
-            <div>
-                <h2>{{ post.title }}</h2>
-                <p>Posted by: {{ post.user.username }}</p>
-                <p>Date: {{ post.created_at }}</p>
-                <a href="{% url 'resource_post_detail' slug=post.slug %}">View Details</a>
-            </div>
-            <hr>
-        {% endfor %}
-    </div>
 
+    <div class="form-outer-body">
+        <div id="forum-container">
+    
+          <div class="search-wrapper">
+            <h1 class="page-title">Resources Page</h1>
+            {% if user.is_authenticated and user.is_staff %}
+            <a href="{% url 'create_resource_post' %}">Create Resource</a>
+        {% endif %}
+        <a href="{% url 'home' %}">
+            <button>Go to Dashboard</button>
+        </a>
+        <br>
+            <div class="search-bar">
+              <input type="text" id="searchInput" placeholder="Search by title">
+    
+            </div>
+          </div>
+          <div id="searchResults"></div>
+          <div id="posts-list" class="posts-grid">
+    
+            {% for post in posts %}
+                <div class="post-row2">
+                <h3>{{ post.title }}</h3>
+                <p class="author">{{ post.user.username }}</p>
+                <p class="timeprint">Posted at: {{ post.created_at }}</p>
+
+                <div class="post-options">
+                    <a href="{% url 'resource_post_detail' slug=post.slug %}" style="text-decorartion:none;"class="view-button">View Post</a>
+                </div>
+                </div>
+            {% endfor %}
+    
+          </div>
+    
+      </div>
+    </div>
     <!-- Loader -->
     <div id="loader"></div>
 
     <!-- JavaScript for AJAX search -->
-    <script>
-        $(document).ready(function() {
-            $('#searchInput').on('input', function() {
-                var query = $(this).val();
-                if (query.trim() !== '') {
-                    $('#loader').show(); // Show the loader
-                    $.ajax({
-                        url: '{% url 'search_resources' %}',
-                        method: 'GET',
-                        data: {
-                            'query': query
-                        },
-                        success: function(response) {
-                            $('#loader').hide(); // Hide the loader
-                            $('#resourcePosts').hide(); // Hide the existing resource posts
-                            $('#searchResults').html(response); // Inject search results
-                        },
-                        error: function(xhr, errmsg, err) {
-                            console.log(xhr.status + ": " + xhr.responseText);
-                        }
-                    });
-                } else {
-                    $('#loader').hide(); // Hide the loader
-                    $('#searchResults').empty();
-                    $('#resourcePosts').show(); // Show the existing resource posts
-                }
+        <script>
+            $(document).ready(function() {
+                $('#searchInput').on('input', function() {
+                    var query = $(this).val();
+                    if (query.trim() !== '') {
+                        $('#loader').show(); // Show the loader
+                        $.ajax({
+                            url: '{% url 'search_resources' %}',
+                            method: 'GET',
+                            data: {
+                                'query': query
+                            },
+                            success: function(response) {
+                                $('#loader').hide(); // Hide the loader
+                                $('#resourcePosts').hide(); // Hide the existing resource posts
+                                $('#searchResults').html(response); // Inject search results
+                            },
+                            error: function(xhr, errmsg, err) {
+                                console.log(xhr.status + ": " + xhr.responseText);
+                            }
+                        });
+                    } else {
+                        $('#loader').hide(); // Hide the loader
+                        $('#searchResults').empty();
+                        $('#resourcePosts').show(); // Show the existing resource posts
+                    }
+                });
             });
-        });
-    </script>
+        </script>
 </body>
 </html>

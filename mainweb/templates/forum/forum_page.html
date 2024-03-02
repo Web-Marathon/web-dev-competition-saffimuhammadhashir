@@ -1,26 +1,43 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Forumpage.css' %}">
     <title>Forum Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
 </head>
 <body>
-    <a href="{% url 'home' %}">
-        <button>Go to Dashboard</button>
-    </a>
-    <h1>Forum Page</h1>
-    {% for post in posts %}
-        <div>
-            <h2>{{ post.title }}</h2>
-            <p>By: {{ post.user.username }} - {{ post.created_at }}</p>
-            <p>{{ post.text }}</p>
-            <a href="{% url 'forum_post_detail' slug=post.slug %}">View Post</a>
-            <!-- Add a button to take you to the specific forum page -->
+
+    <div class="form-outer-body">
+        <div id="forum-container">
+
+            <h1>Forum Page</h1>
+            <div id="load-navigation-container">
+                <a href="{% url 'create_forum_post' %}" id="load-more-button" class="view-button">Create Forum</a>
+                <a href="{% url 'home' %}" id="load-more-button" class="view-button">Go to Dashbaord</a>
+            </div><br>
+            <div id="posts-list" class="posts-grid">
+                {% for post in posts %}
+                <div class="post">
+                    <h3>{{ post.title }}</h3>
+                    <p class="author">{{ post.user.username }}</p>
+                    <p class="timeprint">Posted at: {{ post.created_at }}</p>
+                    <p>{{ post.text }}</p>
+                    <div class="post-options">
+                        <a href="{% url 'forum_post_detail' slug=post.slug %}"class="view-button">View Post</a>
+                    </div>
+                </div>
+                {% endfor %}
+               
+
+
+            </div>
 
         </div>
-        <hr>
-    {% endfor %}
-    <a href="{% url 'create_forum_post' %}">Create New Post</a>
+    </div>
 </body>
 </html>

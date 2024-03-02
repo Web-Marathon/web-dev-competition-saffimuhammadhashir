@@ -22,6 +22,9 @@ def edit_bio(request):
         form = BioForm(instance=request.user)  # Pre-populate the form with existing bio data if available
     return render(request, 'edit_bio.html', {'form': form})
 
+def verify_email(request):
+    return render(request, 'account/verify_email.html', {})
+
 
 
 class CustomSignupView(SignupView):

@@ -1,58 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>Login</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    .container {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f2f2f2;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .container h2 {
-      text-align: center;
-    }
-    .container form {
-      margin-top: 20px;
-    }
-    .container form label {
-      display: block;
-      margin-bottom: 5px;
-    }
-    .container form input[type="text"],
-    .container form input[type="email"],
-    .container form input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    .container form button {
-      width: 100%;
-      padding: 10px;
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    .container form button:hover {
-      background-color: #45a049;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/loginx.css' %}">
 </head>
-<body>
-  <div class="container">
-    <h2>Login</h2>
+<body style="background-color:#043d28;">
+  <div class="wrapper">
+    <h1>Login</h1>
     <form method="POST">
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Login</button>
+      
+      <!-- Username input -->
+      <div class="input-box">
+          <label for="id_login">Username:</label>
+          <input type="text" name="login" id="id_login" placeholder="Username" required>
+      </div>
+      
+      <!-- Password input -->
+      <div class="input-box">
+          <label for="id_password">Password:</label>
+          <input type="password" name="password" id="id_password" placeholder="Password" required>
+      </div>
+      
+      <!-- Login button -->
+      <button class="btn" type="submit">Login</button>
     </form>
-    <a href="{% url 'account_signup' %}">sign up</a>
+
+    <div class="register-link">
+      <p>Don't have an account? <a href="{% url 'account_signup' %}">Sign-up</a> </p>
+    </div>
   </div>
 </body>
 </html>

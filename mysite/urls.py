@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
-from mainweb.views import mainpage1,CustomSignupView,edit_bio,mainpage2
+from mainweb.views import mainpage1,CustomSignupView,edit_bio,mainpage2, verify_email
 from forums.views import create_forum_post, forum_page,forum_post_detail, get_comments, post_comment
 from resources.views import all_resource_posts, resource_post_detail, create_resource_post, edit_resource_post, search_resources
 from events.views import all_calendar_events, create_calendar_event, edit_calendar_event, event_detail
@@ -31,7 +31,8 @@ urlpatterns = [
     path('', mainpage2,name ="home"),
     path('dashboard/', mainpage1,name ="dashboard"),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('accounts/signup/', CustomSignupView.as_view(), name='account_signup'),    
+    path('accounts/signup/', CustomSignupView.as_view(), name='account_signup'), 
+    path('accounts/confirm-email/', verify_email, name='verify_email'), 
     path('add_info', edit_bio,name ="edit_bio"),
     path('forum/', forum_page, name='forum_page'),
     path('forum/create/', create_forum_post, name='create_forum_post'),
@@ -54,3 +55,5 @@ urlpatterns = [
     path('calendar/edit/<slug:slug>/', edit_calendar_event, name='edit_calendar_event'),
     path('calendar/<slug:slug>/', event_detail, name='event_detail'),
 ]
+
+# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

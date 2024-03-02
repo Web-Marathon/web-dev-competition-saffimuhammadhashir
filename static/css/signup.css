@@ -1,0 +1,139 @@
+*{/*stuff for all the nuances in this pain*/
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins",sans-serif;
+    align-content: center;
+}
+
+/*the body*/
+body {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(sign_up_image.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
+/*for the major box*/
+.wrapper{
+    width: 430px;
+    background: transparent;
+    border: 2px solid darkslategrey ;
+    
+    backdrop-filter: blur(25px) ;
+    color:goldenrod;
+    border-radius: 12px;
+    padding: 15px 30px;
+}
+
+/*for the LOGIN - heading*/
+.wrapper h1{
+    font-size: 36px;
+    text-align: center;
+    color: white;
+}
+
+/*for the type in stuff boxies*/
+.wrapper .input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    /*background: yellow;*/
+    margin: 30px 0;
+}
+
+/*for the styling the boxies*/
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: antiquewhite;
+    padding: 20px 45px 20px 20px;
+}
+
+/*for the placeholders in the input boxies*/
+.input-box input::placeholder{
+    color:aliceblue;
+
+}
+
+/*for the input boxie's icons*/
+.input-box i{
+   position: absolute; 
+   right: 20px;
+   top: 30%;
+   transform: translate(-50%);
+   font-size: 20px;
+}
+
+
+/*for the login button*/
+.wrapper .btn{
+    width: 100%;
+    height: 45px;
+    background: white;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.wrapper .btn:hover{
+    width: 100%;
+    height: 45px;
+    background: lightyellow;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: green;
+    font-weight: 600;
+}
+
+/*for the to resigister stuff*/
+.wrapper .password_info{
+    font-size: 15px;
+    text-align:justify;
+    margin: 20px 0 15px;
+}
+
+
+/*for the to sign up link*/
+.password_info li{
+    color: palevioletred;
+    text-decoration: none;    
+}
+
+.wrapper .back_to_login{
+    font-size: 14.5px;
+    text-align: center;
+    margin: 10px 0 0px;
+}
+
+.back_to_login p a{
+    align-content: center;
+    color: aliceblue;
+    text-decoration: underline;    
+}
+/*for the to sign up link when mouse touched*/
+.back_to_login p a:hover{
+    color: palevioletred;
+    text-decoration: underline;
+}
+

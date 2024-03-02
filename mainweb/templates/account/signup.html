@@ -1,16 +1,57 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-<body>
-    <h2>Sign Up</h2>
-    <form method="post" action="{% url 'account_signup' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
+<body style="background-color:#043d28;">
+    <div class="wrapper">
+        <form method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+
+            <h1>Sign Up</h1>
+
+            <!-- Email Field -->
+            <div class="input-box">
+                <input type="email" name="email" id="id_email" placeholder="Email" required>
+                <i class='bx bxl-gmail'></i>
+            </div>
+
+            <!-- Username Field -->
+            <div class="input-box">
+                <input type="text" name="username" id="id_username" placeholder="Username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+
+            <!-- Password Field -->
+            <div class="input-box">
+                <input type="password" name="password1" id="id_password1" placeholder="Password" required>
+                <i class='bx bxs-lock-open-alt'></i>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="input-box">
+                <input type="password" name="password2" id="id_password2" placeholder="Password | Again" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+
+            <!-- Password Errors -->
+            {% for error in form.password1.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Create Account</button>
+        </form>
+
+        <!-- Back to Login Link -->
+        <div class="back_to_login">
+            <p><a href="{% url 'account_login' %}">Go back to login</a></p>
+        </div>
+    </div>
 </body>
 </html>

@@ -15,7 +15,9 @@
     <p>Posted by: {{ post.user.username }}</p>
     <p>Date: {{ post.created_at }}</p>
     <p>{{ post.body |safe}}</p>
-    <a href="{% url 'edit_resource_post' slug=post.slug %}">Edit Resource</a>
+    {% if user.is_superuser %}
+        <a href="{% url 'edit_resource_post' slug=post.slug %}">Edit Resource</a>
+    {% endif %}
     <a href="{% url 'all_resource_posts' %}">Back to All Resource Posts</a>
 </body>
 </html>

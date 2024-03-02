@@ -18,6 +18,13 @@
     <p>Event Date: {{ event.event_date }}</p>
     <p>Description: {{ event.description }}</p>
     <p>Number of RSVPs: {{ rsvp_count }}</p>
+    {% if user.is_authenticated %}
+    {% if user == event.user %}
+        <a href="{% url 'edit_calendar_event' slug=event.slug %}">
+            <button>Edit Event</button>
+        </a>
+    {% endif %}
+    {% endif %}
     {% if messages %}
         <div class="success-message">
             {% for message in messages %}
@@ -25,13 +32,16 @@
             {% endfor %}
         </div>
     {% endif %}
-    {% if request.user not in event.rsvp_set.all %}
+    {% if not user_rsvped %}
     <form method="POST">
         {% csrf_token %}
-        <button type="submit">RSVP for {{ event.event_date }}</button>
+        <button type="submit" name="rsvp">RSVP for {{ event.event_date }}</button>
     </form>
-    {% else %}
-        <button type="submit" disabled>RSVP for {{ event.event_date }}</button>
-    {% endif %}
+{% else %}
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" name="unrsvp">Un-RSVP for {{ event.event_date }}</button>
+    </form>
+{% endif %}
 </body>
 </html>

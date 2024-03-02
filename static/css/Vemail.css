@@ -1,0 +1,73 @@
+*{/*stuff for all the nuances in this pain*/
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins",sans-serif;
+}
+
+/*the body*/
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(sign_up_image.JPG) no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
+/*for the major box*/
+.wrapper{
+    width: 690px;
+    background:  rgba(255, 255, 255, 0.5);;
+    border: 2px solid darkslategrey ;
+    backdrop-filter: blur(50px) ;
+    color: black;
+    border-radius: 12px;
+    padding: 30px 40px;
+}
+
+/*icon's colors*/
+.wrapper i{
+    color: goldenrod;
+}
+
+/*for the LOGIN - heading*/
+.wrapper h1{
+    font-size: 29.57px;
+    text-align: center;
+    margin: 0px 0 5px;
+    color: darkred;
+    
+}
+
+
+.wrapper p{
+    font-size: 5x;
+    text-align: center;
+    display:flex;
+    justify-content: flex-start;
+    color: black;
+}
+
+/*mesages section!*/
+.wrapper .Messages{
+    margin: 10px 0 1px;
+}
+
+/*menu*/
+.wrapper .Menu{
+    margin: 10px 0 1px;
+}
+
+/*for the to sign up link*/
+.Menu p a{
+    color: black;
+    text-decoration: none;    
+}
+/*for the to sign up link when mouse touched*/
+.Menu p a:hover{
+    color: darkcyan;
+    text-decoration: underline;
+}

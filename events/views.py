@@ -37,19 +37,28 @@ def edit_calendar_event(request, slug):
 
 from django.contrib import messages
 
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import CalendarEvent, RSVP
+
+
 @login_required
 def event_detail(request, slug):
     event = get_object_or_404(CalendarEvent, slug=slug)
-    rsvp = RSVP.objects.filter(event=event)
+    rsvp_count = RSVP.objects.filter(event=event).count()
+    user_rsvped = RSVP.objects.filter(event=event, user=request.user).exists()
 
     if request.method == 'POST':
-        # Handle RSVP submission
-        if not rsvp.filter(user=request.user).exists():
-            rsvp_instance = RSVP(user=request.user, event=event)
-            rsvp_instance.save()
-            messages.success(request, "You have successfully RSVP'd for the event.")
-            return redirect('event_detail', slug=slug)  # Redirect to the same page after RSVP
+        if 'rsvp' in request.POST:
+            if not user_rsvped:
+                rsvp = RSVP(user=request.user, event=event)
+                rsvp.save()
+                messages.success(request, 'You have successfully RSVP\'d for the event.')
+        elif 'unrsvp' in request.POST:
+            if user_rsvped:
+                RSVP.objects.filter(user=request.user, event=event).delete()
+                messages.success(request, 'You have successfully un-RSVP\'d for the event.')
 
-    rsvp_count = rsvp.count()
+    return render(request, 'events/event_detail.html', {'event': event, 'rsvp_count': rsvp_count, 'user_rsvped': user_rsvped})
 
-    return render(request, 'events/event_detail.html', {'event': event, 'rsvp_count': rsvp_count})
+

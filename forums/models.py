@@ -3,9 +3,10 @@
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
+from mainweb.models import CustomUser 
 
 class ForumPost(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser , on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -20,7 +21,7 @@ class ForumPost(models.Model):
         return self.title
 
 class ForumComment(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser , on_delete=models.CASCADE)
     post = models.ForeignKey(ForumPost, related_name='comments', on_delete=models.CASCADE)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

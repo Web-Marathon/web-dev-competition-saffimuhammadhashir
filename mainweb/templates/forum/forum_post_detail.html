@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Post Detail</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Function to load comments
+            function loadComments() {
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "get_comments" post.slug %}',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#comments').empty();
+                        $.each(data, function(index, comment) {
+                            var commentTime = new Date(comment.timestamp).toLocaleString(); // Convert timestamp to local time
+                            $('#comments').append('<p>' + comment.text + ' - by ' + comment.user__username + ' at ' + commentTime + '</p>');
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            // Call loadComments initially
+            loadComments();
+
+            // Set up AJAX form submission
+            $('#comment-form').submit(function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "post_comment" post.slug %}',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            loadComments();
+                            $('#comment-form')[0].reset(); // Reset the form
+                        } else {
+                            // Handle errors if needed
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            // Set interval to load comments every 5 seconds
+            setInterval(function() {
+                loadComments();
+            }, 5000); // 5000 milliseconds = 5 seconds
+        });
+    </script>
+</head>
+<body>
+    <h1>Forum Post Detail</h1>
+    <div>
+        <h2>{{ post.title }}</h2>
+        <p>By: {{ post.user.username }} - {{ post.created_at }}</p>
+        <p>{{ post.text }}</p>
+    </div>
+    <hr>
+
+    <h2>Comments</h2>
+    <div id="comments">
+        <!-- Comments will be dynamically loaded here -->
+    </div>
+
+    <hr>
+    <h2>Add Comment</h2>
+    <form id="comment-form" method="POST">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Add Comment</button>
+    </form>
+</body>
+</html>

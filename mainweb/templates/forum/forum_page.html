@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Page</title>
+</head>
+<body>
+    <h1>Forum Page</h1>
+    {% for post in posts %}
+        <div>
+            <h2>{{ post.title }}</h2>
+            <p>By: {{ post.user.username }} - {{ post.created_at }}</p>
+            <p>{{ post.text }}</p>
+            <a href="{% url 'forum_post_detail' slug=post.slug %}">View Post</a>
+            <!-- Add a button to take you to the specific forum page -->
+
+        </div>
+        <hr>
+    {% endfor %}
+    <a href="{% url 'create_forum_post' %}">Create New Post</a>
+</body>
+</html>

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-#3t#3871wz!c=n3+_j(c(5k=k!l2c(kq^ijuk3qse#goiknz!j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.16.132.80','*']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -149,14 +149,31 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# Add these at the top of your settings.py
+from os import getenv
+from dotenv import load_dotenv
+
+# Replace the DATABASES section of your settings.py with this
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'garden',
+    'USER': 'i221293',
+    'PASSWORD': 'qoYSlg1Z2TNn',
+    'HOST': 'ep-lingering-dust-a573c3e8.us-east-2.aws.neon.tech',
+    'PORT':  5432,
+    'OPTIONS': {
+      'sslmode': 'require',
+    },
+  }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

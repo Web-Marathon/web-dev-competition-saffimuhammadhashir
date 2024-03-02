@@ -2,6 +2,7 @@
 
 from django.shortcuts import render
 from .models import ResourcePost
+from django.http import JsonResponse
 
 def all_resource_posts(request):
     posts = ResourcePost.objects.all()
@@ -24,6 +25,16 @@ from django.shortcuts import render, redirect
 from .forms import ResourcePostForm
 
 # views.py
+
+def search_resources(request):
+    query = request.GET.get('query')
+    if query:
+        # Perform a case-insensitive search for resource posts with titles containing the query
+        search_results = ResourcePost.objects.filter(title__icontains=query)
+        context = {'search_results': search_results}
+        return render(request, 'resources/search_results.html', context)
+    else:
+        return render(request, 'resources/search_results.html', {'search_results': []})
 
 
 def create_resource_post(request):

@@ -6,6 +6,9 @@
     <title>Forum Page</title>
 </head>
 <body>
+    <a href="{% url 'home' %}">
+        <button>Go to Dashboard</button>
+    </a>
     <h1>Forum Page</h1>
     {% for post in posts %}
         <div>

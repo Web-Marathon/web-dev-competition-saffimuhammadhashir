@@ -1,0 +1,16 @@
+<!-- search_results.html -->
+
+{% if search_results %}
+    <h2>Search Results:</h2>
+    {% for result in search_results %}
+        <div>
+            <h3>{{ result.title }}</h3>
+            <p>Posted by: {{ result.user.username }}</p>
+            <p>Date: {{ result.created_at }}</p>
+            <a href="{% url 'resource_post_detail' slug=result.slug %}">View Details</a>
+        </div>
+        <hr>
+    {% endfor %}
+{% else %}
+    <p>No results found.</p>
+{% endif %}

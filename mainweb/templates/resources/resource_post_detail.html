@@ -8,6 +8,9 @@
     <title>Resource Post Detail</title>
 </head>
 <body>
+    <a href="{% url 'all_resource_posts' %}">
+        <button>Go to Reasources Page</button>
+    </a>
     <h1>{{ post.title }}</h1>
     <p>Posted by: {{ post.user.username }}</p>
     <p>Date: {{ post.created_at }}</p>

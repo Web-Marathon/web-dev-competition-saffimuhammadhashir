@@ -6,21 +6,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Resource Posts</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        #loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -15px;
+            margin-left: -15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
+    <a href="{% url 'home' %}">
+        <button>Go to Dashboard</button>
+    </a>
     <h1>All Resource Posts</h1>
     {% if user.is_authenticated and user.is_staff %}
         <a href="{% url 'create_resource_post' %}">Create Resource</a>
     {% endif %}
-    {% for post in posts %}
-        <div>
-            <h2>{{ post.title }}</h2>
-            <p>Posted by: {{ post.user.username }}</p>
-            <p>Date: {{ post.created_at }}</p>
-            <a href="{% url 'resource_post_detail' slug=post.slug %}">View Details</a>
-        </div>
-        <hr>
-    {% endfor %}
+    <br>
+    <!-- Search bar -->
+    <input type="text" id="searchInput" placeholder="Search by title">
+    <div id="searchResults"></div>
 
+    <!-- Resource posts -->
+    <div id="resourcePosts">
+        {% for post in posts %}
+            <div>
+                <h2>{{ post.title }}</h2>
+                <p>Posted by: {{ post.user.username }}</p>
+                <p>Date: {{ post.created_at }}</p>
+                <a href="{% url 'resource_post_detail' slug=post.slug %}">View Details</a>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+
+    <!-- Loader -->
+    <div id="loader"></div>
+
+    <!-- JavaScript for AJAX search -->
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').on('input', function() {
+                var query = $(this).val();
+                if (query.trim() !== '') {
+                    $('#loader').show(); // Show the loader
+                    $.ajax({
+                        url: '{% url 'search_resources' %}',
+                        method: 'GET',
+                        data: {
+                            'query': query
+                        },
+                        success: function(response) {
+                            $('#loader').hide(); // Hide the loader
+                            $('#resourcePosts').hide(); // Hide the existing resource posts
+                            $('#searchResults').html(response); // Inject search results
+                        },
+                        error: function(xhr, errmsg, err) {
+                            console.log(xhr.status + ": " + xhr.responseText);
+                        }
+                    });
+                } else {
+                    $('#loader').hide(); // Hide the loader
+                    $('#searchResults').empty();
+                    $('#resourcePosts').show(); // Show the existing resource posts
+                }
+            });
+        });
+    </script>
 </body>
 </html>

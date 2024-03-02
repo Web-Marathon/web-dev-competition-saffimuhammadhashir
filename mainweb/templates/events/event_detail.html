@@ -1,0 +1,37 @@
+<!-- event_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.title }}</title>
+</head>
+<body>
+    <a href="{% url 'all_calendar_events' %}">
+        <button>Go to Calendar</button>
+    </a>
+    <h1>{{ event.name }}</h1>
+    <p>{{ event.description }}</p>
+    <p>Created by: {{ event.user.username }}</p>
+    <p>Creation Date: {{ event.creation_date }}</p>
+    <p>Event Date: {{ event.event_date }}</p>
+    <p>Description: {{ event.description }}</p>
+    <p>Number of RSVPs: {{ rsvp_count }}</p>
+    {% if messages %}
+        <div class="success-message">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if request.user not in event.rsvp_set.all %}
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">RSVP for {{ event.event_date }}</button>
+    </form>
+    {% else %}
+        <button type="submit" disabled>RSVP for {{ event.event_date }}</button>
+    {% endif %}
+</body>
+</html>

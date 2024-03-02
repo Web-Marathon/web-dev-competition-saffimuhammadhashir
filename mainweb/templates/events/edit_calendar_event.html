@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Calendar Event</title>
+</head>
+<body>
+    <h1>Edit Calendar Event</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="id_name">Name:</label><br>
+        <input type="text" id="id_name" name="name" value="{{ form.name.value }}"><br>
+        
+        <label for="id_event_datetime">Event Date and Time:</label><br>
+        <input type="datetime-local" id="id_event_datetime" name="event_date" value="{{ form.event_date.value }}"><br>
+        
+        <label for="id_description">Description:</label><br>
+        <textarea id="id_description" name="description" rows="4" cols="50">{{ form.description.value }}</textarea><br>
+        
+        <!-- Display errors if any -->
+        {% if form.errors %}
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li style="color: red;">{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <!-- JavaScript to set min attribute -->
+    <script>
+        // Get current date and time in the format required by datetime-local input
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = (today.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if necessary
+        var day = today.getDate().toString().padStart(2, '0'); // Add leading zero if necessary
+        var hours = today.getHours().toString().padStart(2, '0'); // Add leading zero if necessary
+        var minutes = today.getMinutes().toString().padStart(2, '0'); // Add leading zero if necessary
+
+        // Set value attribute of datetime-local input to current date and time
+        var currentDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+        document.getElementById('id_event_datetime').setAttribute('value', currentDateTime);
+    </script>
+</body>
+</html>

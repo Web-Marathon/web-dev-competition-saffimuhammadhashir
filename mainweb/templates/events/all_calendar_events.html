@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Calendar Events</title>
+</head>
+<body>
+    <a href="{% url 'home' %}">
+        <button>Go to Dashboard</button>
+    </a>
+    <h1>All Calendar Events</h1>
+    <ul>
+        {% for event in events %}
+            <li>
+                <strong>{{ event.name }}</strong> - {{ event.event_date }} 
+                <a href="{% url 'event_detail' event.slug %}">Details</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_calendar_event' %}">Create New Event</a>
+</body>
+</html>

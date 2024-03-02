@@ -1,0 +1,33 @@
+<!-- create_calendar_event.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Calendar Event</title>
+</head>
+<body>
+    <h1>Create Calendar Event</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="event_datetime">Event Date and Time:</label><br>
+        <input type="datetime-local" id="event_date" name="event_date" min="{{ today_datetime }}"><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
+        <button type="submit">Create Event</button>
+    </form>
+
+    <!-- JavaScript to set min attribute -->
+    <script>
+        // Get current date and time in the format required by datetime-local input
+        var today = new Date();
+        var today_iso = today.toISOString().slice(0, 16); // Remove seconds and milliseconds
+
+        // Set min attribute of datetime-local input to current date and time
+        document.getElementById('event_datetime').setAttribute('min', today_iso);
+    </script>
+</body>
+</html>

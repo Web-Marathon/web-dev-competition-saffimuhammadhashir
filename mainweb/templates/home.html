@@ -1,16 +1,115 @@
+
+
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
-</head>
-<body>
-    <h1>Welcome</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>GardnerSphere | Homepage</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="circle-container">
+        <div class="circle">
+          <button id="close">
+            <i class="fas fa-times"></i>
+          </button>
+          <button id="open">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
 
-    <p>login kar nallu</p>
-    <form method="post" action="{% url 'account_login' %}">
-     {% csrf_token %}
-     <button type="submit">login</button>
-</body>
+      <div class="content">
+        
+        <div class="Welcome_box">
+          
+        <h1>GardnerSphere<i class='bx bx-leaf bx-tada' ></i></h1>
+        <small>compay slogon</small>
+
+
+        </div>
+
+          <div class="options">
+
+          </div>
+
+          <div class="explore">
+
+            <div>
+                
+              <h2>explore<i class='bx bxs-store-alt bx-tada' ></i></h2>
+              <p>what are you interested in today?</p>
+              <form method="post" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                <button type="submit">login</button>
+              <button class="btn" type="submit" > LOGIN <i class='bx bxs-book-content bx-tada' ></i></button>
+
+                            
+
+  
+            </div>
+          </div>
+        {% comment %} <div class="forums">
+
+          <div>  
+            <h2>Forums<i class='bx bxs-book-content bx-tada' ></i></h2>
+            <p>see whats going on in the gardening world!</p>
+
+            <div class="forum_box"> 
+                <h3>{forum topic}</h3>
+                <h4>//usrname</h4>
+                <p>info about th other stuff....</p>
+                <button class="btn" href="#"> view forum </i></button>
+
+            </div>
+
+            <div class="forum_box"> 
+              <h3>{forum topic}</h3>
+              <h4>//usrname</h4>
+              <p>info about th other stuff....</p>
+              <button class="btn" href="#"> view forum </i></button>
+
+          </div>
+
+          <div class="forum_box"> 
+            <h3>{forum topic}</h3>
+            <h4>//usrname</h4>
+            <p>info about th other stuff....</p>
+            <button class="btn" href="#"> view forum </i></button>
+
+        </div>
+
+        <div class="forum_box"> 
+          <h3>{forum topic}</h3>
+          <h4>//usrname</h4>
+          <p>info about th other stuff....</p>
+          <button class="btn" href="#"> view forum </i></button>
+
+      </div> {% endcomment %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <nav >
+      <ul>
+        <li class="x" href="#"><i class='bx bx-home' ></i><a href="#"> Home</a></li>
+        <li class="x" href="#"><i class='bx bx-log-out bx-tada' ></i>Sign Out</a></li>
+        <li class="x" href="#"><i class='bx bxs-message-dots bx-tada' ></i>Messages</li>
+        <li class="x" href="#"><i class='bx bx-user' ></i> Account</a></li>        
+        
+        
+              
+      </ul>
+    </nav>
+    <script src="{% static 'css/script.js' %}"></script>
+  </body>
 </html>
+

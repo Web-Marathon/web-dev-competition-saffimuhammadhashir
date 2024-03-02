@@ -19,7 +19,7 @@ from django.urls import path
 from django.urls import path, include
 from mainweb.views import mainpage1,CustomSignupView,edit_bio,mainpage2
 from forums.views import create_forum_post, forum_page,forum_post_detail, get_comments, post_comment
-from resources.views import all_resource_posts, resource_post_detail, create_resource_post
+from resources.views import all_resource_posts, resource_post_detail, create_resource_post, edit_resource_post
 
 from django.contrib.auth import views as auth_views
 
@@ -41,7 +41,9 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     
     
-    path('all/', all_resource_posts, name='all_resource_posts'),
-    path('detail/<slug:slug>/', resource_post_detail, name='resource_post_detail'),
-    path('create/', create_resource_post, name='create_resource_post'),
+    path('resources/', all_resource_posts, name='all_resource_posts'),
+    path('resources/detail/<slug:slug>/', resource_post_detail, name='resource_post_detail'),
+    path('resources/create/', create_resource_post, name='create_resource_post'),
+    
+    path('edit/<slug:slug>/', edit_resource_post, name='edit_resource_post'),
 ]

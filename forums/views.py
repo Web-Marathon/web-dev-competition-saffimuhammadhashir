@@ -8,15 +8,19 @@ def create_forum_post(request):
     if request.method == 'POST':
         form = ForumPostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user  
-            post.save()
-
-            return redirect(reverse('forum_post_detail', kwargs={'slug': post.slug})) 
+            title = form.cleaned_data['title']
+            # Check if a post with the same title already exists
+            if ForumPost.objects.filter(title=title).exists():
+                # Redirect back with an error message
+                return render(request, 'forum/create_forum_post.html', {'form': form, 'error_message': 'A post with this title already exists.'})
+            else:
+                post = form.save(commit=False)
+                post.user = request.user
+                post.save()
+                return redirect('forum_post_detail', slug=post.slug)
     else:
         form = ForumPostForm()
     return render(request, 'forum/create_forum_post.html', {'form': form})
-from .forms import ForumCommentForm  # Import the form
 
 def forum_post_detail(request, slug):
     post = get_object_or_404(ForumPost, slug=slug)

@@ -21,6 +21,7 @@ from mainweb.views import mainpage1,CustomSignupView,edit_bio,mainpage2, verify_
 from forums.views import create_forum_post, forum_page,forum_post_detail, get_comments, post_comment
 from resources.views import all_resource_posts, resource_post_detail, create_resource_post, edit_resource_post, search_resources
 from events.views import all_calendar_events, create_calendar_event, edit_calendar_event, event_detail
+from chat.views import create_chat_room, chat_room,check_new_messages,send_message
 
 from django.contrib.auth import views as auth_views
 
@@ -54,6 +55,11 @@ urlpatterns = [
     path('calendar/create/', create_calendar_event, name='create_calendar_event'),
     path('calendar/edit/<slug:slug>/', edit_calendar_event, name='edit_calendar_event'),
     path('calendar/<slug:slug>/', event_detail, name='event_detail'),
+    
+    path('create_room/', create_chat_room, name='create_or_enter_room'),
+    path('room/<slug:slug>/', chat_room, name='chat_room'),
+    path('room/<slug:slug>/check_new_messages/', check_new_messages, name='check_new_messages'),
+    path('room/<slug:slug>/send_message/', send_message, name='send_message'),
 ]
 
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

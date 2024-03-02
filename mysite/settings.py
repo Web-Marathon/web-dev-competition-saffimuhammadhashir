@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'forums',
     'resources',
     'events',
+    'chat',
     
     'tinymce',
     

@@ -5,10 +5,15 @@ from django.contrib.auth.decorators import login_required
 from .models import CalendarEvent,RSVP
 from .forms import CalendarEventForm
 
+from django.utils import timezone
+
 @login_required
 def all_calendar_events(request):
-    events = CalendarEvent.objects.all()
+    # Retrieve all events and order them by closest to current date
+    events = CalendarEvent.objects.order_by('event_date').filter(event_date__gte=timezone.now())
+
     return render(request, 'events/all_calendar_events.html', {'events': events})
+
 
 @login_required
 def create_calendar_event(request):

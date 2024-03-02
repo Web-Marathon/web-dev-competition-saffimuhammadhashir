@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create or Enter Chat Room</title>
+</head>
+<body>
+    <a href="{% url 'home' %}">
+        <button>Go to Dashboard</button>
+    </a>
+    <h1>Create or Enter Chat Room</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Render the form fields as <p> elements -->
+        <button type="submit">Enter Room</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ chat_room.name }}</title>
+</head>
+<body>
+    <h1>{{ chat_room.name }}</h1>
+    <p>{{ chat_room.description }}</p>
+    <a href="{% url 'home' %}">
+        <button>Go to Dashboard</button>
+    </a>
+    <h2>Chat Messages</h2>
+    <ul id="chat-messages">
+        {% for message in chat_messages %}
+            <li>{{ message.user }}: {{ message.content }} - {{ message.send_time }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Add Message</h2>
+    <form id="message-form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send</button>
+    </form>
+
+    <!-- Button to copy page link to clipboard -->
+    copy the link and send to you friends to chat
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Function to periodically check for new messages
+            setInterval(function() {
+                $.ajax({
+                    url: "{% url 'check_new_messages' slug=chat_room.slug %}",
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        // Clear existing messages
+                        $('#chat-messages').empty();
+    
+                        // Update chat messages if new messages are available
+                        if (data.new_messages.length > 0) {
+                            data.new_messages.forEach(function(message) {
+                                $('#chat-messages').append('<li>' + message.user + ': ' + message.content + ' - ' + message.send_time + '</li>');
+                            });
+                        }
+                    }
+                });
+            }, 1000); // Check every second
+    
+            // Function to handle form submission for sending new messages
+            $('#message-form').submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: "{% url 'send_message' slug=chat_room.slug %}",
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(data) {
+                        // Clear and focus on the message input field
+                        $('#id_content').val('');
+                        $('#id_content').focus();
+                    }
+                });
+            });
+
+            // Function to copy page link to clipboard
+            $('#copy-link-btn').click(function() {
+                var pageLink = window.location.href;
+                navigator.clipboard.writeText(pageLink)
+                    .then(function() {
+                        alert('Page link copied to clipboard!');
+                    })
+                    .catch(function(error) {
+                        console.error('Failed to copy page link: ', error);
+                    });
+            });
+        });
+    </script>
+    
+</body>
+</html>

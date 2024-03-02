@@ -32,7 +32,7 @@ def forum_page(request):
 
 def get_comments(request, slug):
     post = ForumPost.objects.get(slug=slug)
-    comments = post.comments.all().values('text', 'user__username')
+    comments = post.comments.all().values('text', 'user__username','created_at')
     return JsonResponse(list(comments), safe=False)
 
 def post_comment(request, slug):

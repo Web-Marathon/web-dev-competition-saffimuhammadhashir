@@ -43,8 +43,11 @@ class CustomSignupView(SignupView):
     
 # Create your views here.
 def mainpage1(request):
-    if request.user.is_authenticated and not request.user.check_bio:
-        return redirect(reverse('edit_bio'))  # Redirect to edit_bio page
+    if not request.user.is_authenticated:
+        return redirect('home')  # Redirect non-authenticated users to mainpage2
+    
+    if not request.user.check_bio:
+        return redirect('edit_bio')  # Redirect authenticated users without a bio to edit_bio page
     
     current_user = request.user
     context = {
@@ -52,3 +55,10 @@ def mainpage1(request):
     }
 
     return render(request, "main.html", context)
+
+
+def mainpage2(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')  # Redirect authenticated users to mainpage1
+    else:
+        return render(request, "home.html", {})

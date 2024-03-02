@@ -7,20 +7,18 @@
 </head>
 <body>
     <h1>Welcome</h1>
-    
-    {% if user.is_authenticated %}
+
     <p>Your email: {{ user.email }}</p>
     <p>Your bio: {{ user.bio }}</p>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit">Logout</button>
     </form>
-    {% else %}
-       <p>login kar nallu</p>
-       <form method="post" action="{% url 'account_login' %}">
-        {% csrf_token %}
-        <button type="submit">login</button>
+    <a href="{% url 'forum_page' %}">
+        <button>Go to Forum Page</button>
+    </a>
+
     </form>
-    {% endif %}
+
 </body>
 </html>

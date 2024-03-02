@@ -1,0 +1,17 @@
+<!-- resource_post_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Post Detail</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>Posted by: {{ post.user.username }}</p>
+    <p>Date: {{ post.created_at }}</p>
+    <p>{{ post.body }}</p>
+    <a href="{% url 'all_resource_posts' %}">Back to All Resource Posts</a>
+</body>
+</html>

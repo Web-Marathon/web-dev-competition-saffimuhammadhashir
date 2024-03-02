@@ -31,9 +31,15 @@ ALLOWED_HOSTS = ['172.16.132.80','*']
 
 # Application definition
 
+
+
 INSTALLED_APPS = [
     'mainweb',
     'forums',
+    'resources',
+    
+    'tinymce',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +56,36 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
 
 ]
+
+# TinyMCE Configuration
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 360,
+    'width': 800,
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'modern',
+    'plugins': '''
+        textcolor save link image media preview codesample contextmenu
+        table code lists fullscreen  insertdatetime  nonbreaking
+        contextmenu directionality searchreplace wordcount visualblocks
+        visualchars code fullscreen autolink lists  charmap print  hr
+        anchor pagebreak
+    ''',
+    'toolbar': '''
+        undo redo | styleselect | bold italic | alignleft aligncenter
+        alignright alignjustify | bullist numlist outdent indent | link image | preview
+    ''',
+    'toolbar2': '''
+        visualblocks visualchars |
+        charmap hr pagebreak nonbreaking anchor |
+        codesample |
+    ''',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+}
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
